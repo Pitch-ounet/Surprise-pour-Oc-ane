@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071126">
+<title>Pour Océane ❤️</title>
+<style>
+  :root { color-scheme: dark; --night:#071126; --red:#ff365e; --pink:#ff91ad; --white:#fff8fc; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; min-height:100%; }
+  body { min-height:100svh; overflow:hidden; display:grid; place-items:center; background:radial-gradient(ellipse at 50% 42%, #172448 0%, #0b1630 40%, var(--night) 78%); color:var(--white); font-family: Georgia, 'Times New Roman', serif; }
+  .sky, .vignette { position:fixed; inset:0; pointer-events:none; }
+  .sky { overflow:hidden; }
+  .star { position:absolute; width:2px; height:2px; border-radius:50%; background:#fff; box-shadow:0 0 7px 2px #dce7ff; opacity:.2; animation:twinkle var(--dur,3s) ease-in-out infinite alternate; animation-delay:var(--delay,0s); }
+  @keyframes twinkle { from { opacity:.12; transform:scale(.7); } to { opacity:1; transform:scale(1.5); } }
+  .vignette { background:radial-gradient(ellipse at center, transparent 30%, rgba(1,5,18,.55) 100%); }
+  main { position:relative; z-index:1; width:min(92vw,520px); padding:28px 18px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:12px; }
+  .eyebrow { margin:0; color:#c6d1ee; font: 11px/1.4 system-ui,sans-serif; letter-spacing:.28em; text-transform:uppercase; opacity:0; animation:fadeUp 1s ease .35s forwards; }
+  .heart-wrap { width:min(76vw,330px); margin:2px auto 0; filter:drop-shadow(0 0 12px rgba(255,54,94,.45)); }
+  svg { width:100%; height:auto; overflow:visible; }
+  .heart-path { fill:none; stroke:var(--red); stroke-width:3.2; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:1000; stroke-dashoffset:1000; animation:draw 4.2s cubic-bezier(.55,.05,.25,1) .8s forwards, heartGlow 2.4s ease-in-out 5s infinite alternate; }
+  .heart-inner { fill:rgba(255,54,94,0); animation:fillHeart 1.6s ease 4.2s forwards; }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+  @keyframes heartGlow { from { filter:drop-shadow(0 0 2px #ff365e); stroke-width:3; } to { filter:drop-shadow(0 0 12px #ff365e); stroke-width:3.8; } }
+  @keyframes fillHeart { to { fill:rgba(255,54,94,.08); } }
+  .names { margin:0; font-size:clamp(27px,7vw,39px); font-weight:normal; letter-spacing:.02em; opacity:0; transform:translateY(8px); animation:fadeUp 1.4s ease 4.7s forwards; text-shadow:0 0 18px rgba(255,145,173,.3); }
+  .amp { color:var(--pink); font-style:italic; }
+  .message { margin:3px 0 0; font-size:clamp(21px,5.5vw,29px); color:#ffdce6; opacity:0; transform:translateY(8px); animation:fadeUp 1.4s ease 6.1s forwards; }
+  @keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
+  .controls { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:13px; opacity:0; animation:fadeUp 1s ease 7.2s forwards; }
+  button { border:1px solid rgba(255,210,224,.35); color:#fff3f7; background:rgba(255,255,255,.06); border-radius:999px; padding:10px 15px; font:12px system-ui,sans-serif; letter-spacing:.04em; cursor:pointer; backdrop-filter:blur(6px); }
+  button:focus-visible { outline:2px solid #ff91ad; outline-offset:3px; }
+  .hint { margin:0; color:#9eaccd; font:11px/1.5 system-ui,sans-serif; }
+  @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; } }
+</style>
+</head>
+<body>
+<div class="sky" id="sky" aria-hidden="true"></div><div class="vignette" aria-hidden="true"></div>
+<main>
+  <p class="eyebrow">Une petite surprise pour toi</p>
+  <div class="heart-wrap" aria-label="Un cœur rouge lumineux se dessine">
+    <svg viewBox="0 0 300 270" role="img" aria-label="Cœur lumineux">
+      <path class="heart-inner" d="M150 239 C125 214 31 154 31 91 C31 31 106 20 150 78 C194 20 269 31 269 91 C269 154 175 214 150 239 Z"/>
+      <path class="heart-path" d="M150 239 C125 214 31 154 31 91 C31 31 106 20 150 78 C194 20 269 31 269 91 C269 154 175 214 150 239 Z"/>
+    </svg>
+  </div>
+  <h1 class="names">Océane <span class="amp">&amp;</span> Maxime</h1>
+  <p class="message">Je t'aime <span aria-label="cœur rouge">❤️</span></p>
+  <div class="controls">
+    <button id="musicBtn" type="button" aria-pressed="false">♫ Activer la musique</button>
+    <button id="replayBtn" type="button">↻ Revoir l'animation</button>
+  </div>
+  <p class="hint">À écouter avec le son, si tu en as envie.</p>
+</main>
+<script>
+  // Small stars are generated locally; no images or trackers are loaded.
+  const sky = document.getElementById('sky');
+  for (let i=0; i<75; i++) {
+    const s = document.createElement('i'); s.className='star';
+    s.style.left=(Math.random()*100)+'%'; s.style.top=(Math.random()*100)+'%';
+    s.style.setProperty('--dur',(2+Math.random()*4)+'s');
+    s.style.setProperty('--delay',(-Math.random()*5)+'s');
+    if (Math.random()>.8) { s.style.width='3px'; s.style.height='3px'; }
+    sky.appendChild(s);
+  }
+  // Gentle original synthesized ambient notes. Browsers require a tap before audio can start.
+  let audioCtx=null, master=null, timers=[], musicOn=false;
+  const musicBtn=document.getElementById('musicBtn');
+  function stopMusic(){ timers.forEach(clearTimeout); timers=[]; if(master){ try{master.gain.setTargetAtTime(0,audioCtx.currentTime,.25); setTimeout(()=>{try{audioCtx.close()}catch(e){} audioCtx=null; master=null;},700);}catch(e){} } musicOn=false; musicBtn.textContent='♫ Activer la musique'; musicBtn.setAttribute('aria-pressed','false'); }
+  async function startMusic(){
+    const AC=window.AudioContext||window.webkitAudioContext; if(!AC){musicBtn.textContent='Son non disponible'; return;}
+    audioCtx=new AC(); await audioCtx.resume(); master=audioCtx.createGain(); master.gain.value=.0001; master.connect(audioCtx.destination); master.gain.setTargetAtTime(.12,audioCtx.currentTime,.8);
+    const chords=[[261.63,329.63,392.00],[220.00,261.63,329.63],[174.61,220.00,261.63],[196.00,246.94,293.66]];
+    function playChord(idx){ if(!audioCtx||!master)return; const now=audioCtx.currentTime; chords[idx%chords.length].forEach((freq,j)=>{const osc=audioCtx.createOscillator(),gain=audioCtx.createGain(); osc.type='sine'; osc.frequency.value=freq; gain.gain.setValueAtTime(.0001,now); gain.gain.exponentialRampToValueAtTime(j===0?.19:.09,now+1.1); gain.gain.exponentialRampToValueAtTime(.0001,now+3.7); osc.connect(gain); gain.connect(master); osc.start(now); osc.stop(now+3.8);}); }
+    chords.forEach((_,i)=>timers.push(setTimeout(()=>playChord(i),i*3000)));
+    let idx=4; const loop=()=>{if(!audioCtx||!master)return; playChord(idx++%chords.length); timers.push(setTimeout(loop,3000));}; timers.push(setTimeout(loop,chords.length*3000));
+    musicOn=true; musicBtn.textContent='♫ Couper la musique'; musicBtn.setAttribute('aria-pressed','true');
+  }
+  musicBtn.addEventListener('click',()=>{if(musicOn) stopMusic(); else startMusic().catch(()=>{musicBtn.textContent='Réessaie pour activer le son';});});
+  document.getElementById('replayBtn').addEventListener('click',()=>{const heart=document.querySelector('.heart-wrap'), names=document.querySelector('.names'), message=document.querySelector('.message'), eyebrow=document.querySelector('.eyebrow'), controls=document.querySelector('.controls'); [heart.querySelector('.heart-path'),heart.querySelector('.heart-inner'),names,message,eyebrow,controls].forEach(el=>{el.style.animation='none'; void el.offsetWidth; el.style.animation='';});});
+</script>
+</body>
+</html>
