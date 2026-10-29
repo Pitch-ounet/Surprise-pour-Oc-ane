@@ -1,2 +1,2 @@
-# Surprise-pour-Oc-ane
+# Surprise-pour-Océane
 Romantic animation for Océane
